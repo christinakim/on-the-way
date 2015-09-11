@@ -54,10 +54,7 @@ func MapEncoder(c martini.Context, w http.ResponseWriter, r *http.Request) {
     }
     // Inject the requested encoder
     switch ft {
-    case ".xml":
-        c.MapTo(routes.XmlEncoder{}, (*routes.Encoder)(nil))
-        w.Header().Set("Content-Type", "application/xml")
-    case ".text":
+	  case ".text":
         c.MapTo(routes.TextEncoder{}, (*routes.Encoder)(nil))
         w.Header().Set("Content-Type", "text/plain; charset=utf-8")
     default:

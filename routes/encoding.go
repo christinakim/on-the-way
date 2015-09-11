@@ -44,33 +44,6 @@ func (_ JsonEncoder) Encode(v ...interface{}) (string, error) {
     return string(b), err
 }
 
-type XmlEncoder struct{}
-
-// XmlEncoder is an Encoder that produces XML-formatted responses.
-func (e XmlEncoder) EncodeOne(v interface{}) (string, error) {
-    return e.Encode(v)
-}
-
-func (_ XmlEncoder) Encode(v ...interface{}) (string, error) {
-    var buf bytes.Buffer
-    if _, err := buf.Write([]byte(xml.Header)); err != nil {
-        return "", err
-    }
-    if _, err := buf.Write([]byte("<result>")); err != nil {
-        return "", err
-    }
-    b, err := xml.Marshal(v)
-    if err != nil {
-        return "", err
-    }
-    if _, err := buf.Write(b); err != nil {
-        return "", err
-    }
-    if _, err := buf.Write([]byte("</result>")); err != nil {
-        return "", err
-    }
-    return buf.String(), nil
-}
 
 type TextEncoder struct{}
 
